@@ -28,16 +28,23 @@ export default function SignUp() {
   <Container>
     <ImgLogo source={require('../../assets/logo.png')}/>
     <Input
+      autoCapitalize='none'
+      autoCorrect={false}
       placeholder='Nome'
       value={nome}
       onChangeText={(text) => setNome(text)}
     />
     <Input
+      autoCapitalize='none'
+      autoCorrect={false}
       placeholder='Email'
       value={email}
       onChangeText={(text) => setEmail(text)}
     />
     <Input
+      autoCapitalize='none'
+      autoCorrect={false}
+      secureTextEntry
       placeholder='Senha'
       value={password}
       onChangeText={(text) => setPassword(text)}

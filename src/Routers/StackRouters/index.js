@@ -16,7 +16,7 @@ function StackRouters() {
                 headerTitle: 'Voltar',
                 headerTintColor: '#fff',
                 headerStyle: {
-                    backgroundColor: '#131313',
+                    backgroundColor: '#232630',
                     borderColor: "#00ba4a"
                 }
             }}

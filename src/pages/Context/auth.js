@@ -18,7 +18,7 @@ function AuthProvider({ children }){
       setLoading(false)
     }
     loadData()
-  }, []);
+  }, [user]);
 
   async function signIn(email, password){
     await firebase.auth().signInWithEmailAndPassword(email, password).then( async(value) => {
@@ -27,12 +27,12 @@ function AuthProvider({ children }){
         let data = {
           uid: uid,
           nome: snapshot.val().nome,
-          email: snapshot.val().email
+          email: snapshot.val().email,
+          saldo: snapshot.val().saldo
         }
         setUser(data);
         storangeUser(data);
       }).then(() => {
-        alert('Usuario logado')
       }).catch((error) => {
         alert(error)  
       })
@@ -45,12 +45,14 @@ function AuthProvider({ children }){
     await firebase.auth().createUserWithEmailAndPassword(email, password).then(async (value) => {
       let uid = value.user.uid;
       await firebase.database().ref('users').child(uid).set({
-       nome: nome
+       nome: nome,
+       saldo: 0
       }).then(() => {
         let data = {
           uid: uid,
           nome: nome,
-          email: email
+          email: email,
+          saldo: saldo
         }
         setUser(data)
         storangeUser(data)
@@ -61,6 +63,13 @@ function AuthProvider({ children }){
     }).catch((error) => {
       alert('Algo deu errado... ' + error)
     })
+  }
+
+  async function Balance(){
+    let uid = user.uid
+    let saldoAtual = await firebase.database().ref('users').child(uid).child('saldo')
+
+    return saldoAtual;
   }
 
   async function storangeUser(data){
@@ -76,7 +85,7 @@ function AuthProvider({ children }){
   }
 
   return(
-  <AuthContext.Provider value={{signed: !!user, user, signIn, SignUp, loading, signout}}>
+  <AuthContext.Provider value={{signed: !!user, user, signIn, SignUp, loading, signout, Balance}}>
     {children}
   </AuthContext.Provider>
   )
