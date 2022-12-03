@@ -26,11 +26,15 @@ function SignIn() {
       <Container>
         <ImgLogo source={require('../../assets/logo.png')}/>
         <Input
+          autoCapitalize='none'
+          autoCorrect={false}
           placeholder='Email'
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
         <Input
+          autoCapitalize='none'
+          autoCorrect={false}
           placeholder='Senha'
           value={password}
           secureTextEntry
